@@ -1,3 +1,3 @@
 module.exports = {
-	db: 'mongodb://localhost/expresso-app'
+	db: 'mongodb://localhost/expressoapp'
 }

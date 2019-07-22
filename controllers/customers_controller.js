@@ -1,24 +1,35 @@
 const Customer =  require('../models/customers');
 
 exports.create_customer = function(req, res){
-	let customer = new Customer(req.body);
-	  customer.save()
+	let custo = new Customer({
+		   customer: [			
+		    {firstName: req.body.firstName},
+			{lastName: req.body.lastName},
+			{DOB: req.body.DOB},
+			{email: req.body.email},
+			{phoneNumber: req.body.phoneNumber}
+			]  
+
+	});
+	console.log(JSON.stringify(custo))
+	  custo.save()
 	    .then(customer => {
 	      res.status(200).json({'customer': 'Customer added successfully'});
 	    })
 	    .catch(err => {
-	    res.status(400).send("Unable to save to database");
+	    res.status(400).send(err.message);
 	});
 }
-
+// , 
+// 		car:[
+// 		    {make: "Toyota"}, 
+// 			{model: "UID"}, 
+// 			{year: Date()}, 
+// 			{owner: "Mathews"}
+// 			] 
 exports.get_customers = function(res, res){
 	Customer.find((err, customers)=>{
-    if(err){
-      console.log(err);
-    }
-    else {
-      res.json(customers);
-    }
+		res.json(customers);
   });
 }
 
